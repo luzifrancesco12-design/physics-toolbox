@@ -1,0 +1,8 @@
+# Cartelle di cache di Python
+__pycache__/
+
+# File compilati di Python
+*.pyc
+*.pyo
+*.pyd
+

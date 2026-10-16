@@ -22,7 +22,7 @@ class BodePlotter(BasePlotter):
                 marker='o', markersize=3,
                 capsize=3, elinewidth=1.2):
         """
-        Traccia modulo e fase con supporto opzionale a barre di errore.
+        Traccia modulo e fase con supporto opzionale a barre di errore.ª
         
         Parametri:
         - freq: array delle frequenze (o pulsazioni)
