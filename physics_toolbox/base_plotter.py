@@ -16,7 +16,8 @@ plt.rcParams.update({
     "xtick.labelsize": 10,
     "ytick.labelsize": 10,
     "legend.fontsize": 10,
-    "figure.dpi": 300
+    "figure.dpi": 100,
+    "savefig.dpi": 300
 })
 
 class BasePlotter:
@@ -90,7 +91,7 @@ class BasePlotter:
         ax = self.axes[ax_idx]
         ax.legend(loc=loc, frameon=True)
 
-    def save(self, filepath, dpi=100):
+    def save(self, filepath, dpi=300):
         """Salva la figura su file in formato vettoriale (PDF) o raster (PNG)."""
         self.fig.savefig(filepath, dpi=dpi, bbox_inches='tight')
 
