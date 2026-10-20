@@ -1,9 +1,8 @@
 import gspread
 import pandas as pd
 import numpy as np
-from google.colab import auth
-from google.auth import default
-
+from google.colab import userdata
+import json
 
 class SheetConnector:
     """Classe per la gestione avanzata e flessibile di Google Sheets."""
