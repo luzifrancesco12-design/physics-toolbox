@@ -90,7 +90,7 @@ class BasePlotter:
         ax = self.axes[ax_idx]
         ax.legend(loc=loc, frameon=True)
 
-    def save(self, filepath, dpi=300):
+    def save(self, filepath, dpi=100):
         """Salva la figura su file in formato vettoriale (PDF) o raster (PNG)."""
         self.fig.savefig(filepath, dpi=dpi, bbox_inches='tight')
 
