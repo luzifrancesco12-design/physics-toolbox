@@ -17,7 +17,7 @@ class BodePlotter(BasePlotter):
         self.set_labels(xlabel=r"$\omega\text{ [rad/s]}$", ylabel=r"$|H(j\omega)|\text{ [dB]}$", ax_idx=0)
         self.set_labels(xlabel=r"$\omega\text{ [rad/s]}$", ylabel=r"$\arg(H)\text{ [deg]}$", ax_idx=1)
 
-    def plot_bode(self, freq, magnitude, phase_deg, freq_err=None, magnitude_err=None, phase_err_deg=None,
+    def plot_bode(self, freq, magnitude, phase_deg=None, freq_err=None, magnitude_err=None, phase_err_deg=None,
                 is_db=True, label_mag=None, label_phase=None,
                 marker='o', markersize=3,
                 capsize=3, elinewidth=1.2):
@@ -38,10 +38,12 @@ class BodePlotter(BasePlotter):
             freq, mag_plot, xerr=freq_err, yerr=mag_plot_err, label=label_mag, marker=marker,
             markersize=markersize, linewidth=1.5, elinewidth=elinewidth, capsize=capsize
         )
-        self.ax_phase.errorbar(
-            freq, phase_deg, xerr=freq_err, yerr=phase_err_deg, label=label_phase, marker=marker,
-            markersize=markersize, linewidth=1.5, elinewidth=elinewidth, capsize=capsize
-        )
+        
+        if phase_deg is not None and self.ax_phase is not None: 
+            self.ax_phase.errorbar(
+                freq, phase_deg, xerr=freq_err, yerr=phase_err_deg, label=label_phase, marker=marker,
+                markersize=markersize, linewidth=1.5, elinewidth=elinewidth, capsize=capsize
+            )
 
         # Riunisce le etichette dei due pannelli in una sola legenda sul grafico superiore.
         handles, labels = [], []

@@ -6,22 +6,22 @@ from google.auth import default
 
 
 class SheetConnector:
-    """Classe per la gestione della connessione a Google Sheets e l'estrazione dati."""
+    """Classe per la gestione avanzata e flessibile di Google Sheets."""
 
     def __init__(self):
-        """Esegue l'autenticazione interattiva dell'utente su Google Colab."""
         auth.authenticate_user()
         creds, _ = default()
         self.client = gspread.authorize(creds)
 
-    def get_dataframe(
-        self, sheet_url_or_id: str, worksheet_identifier: str | int = 0
+    def get_smart_dataframe(
+        self,
+        sheet_url_or_id: str,
+        header_keyword: str = "Frequenza",
+        worksheet_identifier: str | int = 0,
     ) -> pd.DataFrame:
-        """Apre un Google Sheet e carica l'intero foglio (o una scheda) in un DataFrame Pandas.
+        """Cerca autonomamente la riga contenente la parola chiave (es. 'Frequenza'),
 
-        Parametri:
-        - sheet_url_or_id (str): URL completo oppure ID del Google Sheet.
-        - worksheet_identifier (str | int): Nome della scheda (str) o indice (int, default=0).
+        la usa come intestazione della tabella e scarta i metadati superiori.
         """
         if sheet_url_or_id.startswith("http"):
             spreadsheet = self.client.open_by_url(sheet_url_or_id)
@@ -33,33 +33,31 @@ class SheetConnector:
         else:
             worksheet = spreadsheet.worksheet(worksheet_identifier)
 
-        data = worksheet.get_all_records()
-        return pd.DataFrame(data)
+        # Scarica l'intera matrice grezza del foglio
+        data = worksheet.get_all_values()
 
-    def get_arrays(
-        self,
-        sheet_url_or_id: str,
-        columns: list[str],
-        worksheet_identifier: str | int = 0,
-    ) -> list[np.ndarray]:
-        """Estrae direttamente colonne specifiche dal foglio e le restituisce come un elenco di array NumPy.
+        # Trova la riga in cui compare la parola chiave (es. 'Frequenza')
+        header_row_idx = None
+        for idx, row in enumerate(data):
+            if any(
+                header_keyword.lower() in str(cell).lower() for cell in row
+            ):
+                header_row_idx = idx
+                break
 
-        Parametri:
-        - sheet_url_or_id (str): URL o ID del foglio Google.
-        - columns (list): Elenco dei nomi delle colonne da estrarre (es. ['Frequenza', 'Guadagno']).
-        - worksheet_identifier (str | int): Nome o indice del foglio.
+        if header_row_idx is None:
+            raise ValueError(
+                f"Impossibile trovare una riga con la parola chiave '{header_keyword}' nel foglio."
+            )
 
-        Ritorna:
-        - Una lista di array NumPy corrispondenti alle colonne richieste.
-        """
-        df = self.get_dataframe(sheet_url_or_id, worksheet_identifier)
+        # Isola intestazioni e dati sottostanti
+        headers = data[header_row_idx]
+        rows = data[header_row_idx + 1 :]
 
-        arrays = []
-        for col in columns:
-            if col not in df.columns:
-                raise KeyError(
-                    f"La colonna '{col}' non è presente nel foglio Google."
-                )
-            arrays.append(df[col].to_numpy())
+        df = pd.DataFrame(rows, columns=headers)
 
-        return arrays
+        # Pulisce eventuali righe vuote
+        df = df.dropna(how="all")
+        df = df[df[headers[0]] != ""]  # Rimuove righe senza valore nella prima colonna
+
+        return df
