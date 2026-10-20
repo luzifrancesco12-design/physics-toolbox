@@ -28,7 +28,7 @@ class BodePlotter(BasePlotter):
         - freq: array delle frequenze (o pulsazioni)
         - magnitude: array del modulo (in dB se is_db=True, in unità lineari se is_db=False)
         - phase_deg: array della fase in gradi
-        - is_db: booleano, indica se il modulo è già in scala decibel
+        - is_db: booleano, indica se il modulot è già in scala decibel
         """
         # Conversione automatica in dB se i dati in input sono lineari
         mag_plot = magnitude if is_db else 20.0 * np.log10(np.abs(magnitude))

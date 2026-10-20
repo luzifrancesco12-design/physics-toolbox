@@ -1,10 +1,14 @@
+import shutil
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 
-# Configurazione globale per standard accademici e rendering LaTeX
+# Usa LaTeX solo se è installato, altrimenti ripiega sul mathtext di matplotlib
+HAS_LATEX = shutil.which("latex") is not None
+
 plt.rcParams.update({
-    "text.usetex": True,
+    "text.usetex": HAS_LATEX,
+    "text.latex.preamble": r"\usepackage{amsmath}" if HAS_LATEX else "",
     "font.family": "serif",
     "font.size": 11,
     "axes.labelsize": 12,
