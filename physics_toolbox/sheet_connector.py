@@ -9,10 +9,12 @@ class SheetConnector:
     """Classe per la gestione avanzata e flessibile di Google Sheets."""
 
     def __init__(self):
-        auth.authenticate_user()
-        creds, _ = default()
-        self.client = gspread.authorize(creds)
-
+        # Legge il JSON direttamente dai Secrets di Colab in modo sicuro
+        secret_json = userdata.get('GCP_SERVICE_ACCOUNT_JSON')
+        creds_dict = json.loads(secret_json)
+        
+        # Autenticazione silenziosa con le credenziali del bot
+        self.client = gspread.service_account_from_dict(creds_dict)
     def get_smart_dataframe(
         self,
         sheet_url_or_id: str,
