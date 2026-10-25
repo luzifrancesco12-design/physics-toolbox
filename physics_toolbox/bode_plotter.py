@@ -30,15 +30,19 @@ class BodePlotter(BasePlotter):
             self.ax_mag.set_xlabel("")  # l'etichetta x resta solo sul pannello in basso
 
     def plot_bode(self, freq, magnitude, phase_deg=None, freq_err=None,
-                magnitude_err=None, phase_err_deg=None, is_db=True,
+                magnitude_err=None, phase_err_deg=None, is_db=True, is_db_err=False,
                 label_mag=None, label_phase=None,
                 marker='o', linestyle='none', markersize=3, capsize=3, elinewidth=1.2):
         magnitude = np.asarray(magnitude, dtype=float)
 
         if is_db:
-            mag_plot, mag_err = magnitude, magnitude_err
+            mag_plot= magnitude
         else:
             mag_plot = 20.0 * np.log10(np.abs(magnitude))
+            
+        if is_db_err:
+            mag_err=magnitude_err
+        else: 
             # propagazione dell'errore: d(20 log10 x) = 20/ln(10) * dx/x
             mag_err = None if magnitude_err is None else \
                 (20.0 / np.log(10)) * np.asarray(magnitude_err) / np.abs(magnitude)
