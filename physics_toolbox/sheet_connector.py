@@ -38,9 +38,9 @@ class SheetConnector:
             
         # Converte le lettere in numeri se l'utente passa stringhe (es. 'A' -> 0)
         if isinstance(start_col, str):
-            start_col = gspread.utils.column_letter_to_numeric(start_col) - 1
+            start_col_num = gspread.utils.a1_to_rowcol(f"{start_col}1")[1]
         if isinstance(end_col, str):
-            end_col = gspread.utils.column_letter_to_numeric(end_col) - 1
+            end_col_num = gspread.utils.a1_to_rowcol(f"{end_col}1")[1]
             
         if isinstance(worksheet_identifier, int):
             worksheet = spreadsheet.get_worksheet(worksheet_identifier)
