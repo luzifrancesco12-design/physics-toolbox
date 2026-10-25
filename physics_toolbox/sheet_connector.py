@@ -1,4 +1,5 @@
 import gspread
+import gspread.utils
 import pandas as pd
 import numpy as np
 from google.colab import userdata
