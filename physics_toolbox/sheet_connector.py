@@ -35,6 +35,12 @@ class SheetConnector:
         else:
             spreadsheet = self.client.open_by_key(sheet_url_or_id)
             
+        # Converte le lettere in numeri se l'utente passa stringhe (es. 'A' -> 0)
+        if isinstance(start_col, str):
+            start_col = gspread.utils.column_letter_to_numeric(start_col) - 1
+        if isinstance(end_col, str):
+            end_col = gspread.utils.column_letter_to_numeric(end_col) - 1
+            
         if isinstance(worksheet_identifier, int):
             worksheet = spreadsheet.get_worksheet(worksheet_identifier)
         else:
