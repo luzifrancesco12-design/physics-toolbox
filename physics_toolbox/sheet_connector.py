@@ -19,7 +19,8 @@ class SheetConnector:
         start_col: int,
         end_col: int,
         header_row_idx: int = 8,
-        worksheet_identifier: str | int = 0
+        worksheet_identifier: str | int = 0,
+        end_row: int = 100
     ) -> pd.DataFrame:
         """
         Estrae una specifica sotto-tabella (blocco verticale) basata su un range 
@@ -47,12 +48,11 @@ class SheetConnector:
         else:
             worksheet = spreadsheet.worksheet(worksheet_identifier)
             
-        # Scarica l'intera matrice del foglio
-        data = worksheet.get_all_values()
-        df_full = pd.DataFrame(data)
+        # Costruisce il range in stile Excel (es. "A1:I100") nativo di gspread
+        range_notation = f"{start_col}1:{end_col}{end_row}"
+        data = worksheet.get(range_notation)
         
-        # Taglia verticalmente il DataFrame prendendo solo le colonne del blocco desiderato
-        df_block = df_full.iloc[:, start_col:end_col + 1]
+        df_block = pd.DataFrame(data)
         
         # Isola le intestazioni e i dati sottostanti per questo specifico blocco
         headers = df_block.iloc[header_row_idx].values
