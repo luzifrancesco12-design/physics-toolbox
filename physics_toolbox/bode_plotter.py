@@ -40,12 +40,14 @@ class BodePlotter(BasePlotter):
         else:
             mag_plot = 20.0 * np.log10(np.abs(magnitude))
             
+        lin = 10**(magnitude/20) if is_db else np.abs(magnitude) 
+            
         if is_db_err:
             mag_err=magnitude_err
         else: 
             # propagazione dell'errore: d(20 log10 x) = 20/ln(10) * dx/x
             mag_err = None if magnitude_err is None else \
-                (20.0 / np.log(10)) * np.asarray(magnitude_err) / np.abs(magnitude)
+                (20.0 / np.log(10)) * np.asarray(magnitude_err) / lin
 
         self.ax_mag.errorbar(freq, mag_plot, xerr=freq_err, yerr=mag_err,
                             label=label_mag, marker=marker, linestyle=linestyle, markersize=markersize,
