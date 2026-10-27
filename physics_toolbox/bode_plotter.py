@@ -50,12 +50,14 @@ class BodePlotter(BasePlotter):
                 (20.0 / np.log(10)) * np.asarray(magnitude_err) / lin
 
         self.ax_mag.errorbar(freq, mag_plot, xerr=freq_err, yerr=mag_err,
-                            label=label_mag, marker=marker, linestyle=linestyle, markersize=markersize,
+                            label=label_mag, marker=marker, linestyle=linestyle, 
+                            color='royalblue',markersize=markersize,
                             elinewidth=elinewidth, capsize=capsize)
 
         if self.show_phase and phase_deg is not None:
             self.ax_phase.errorbar(freq, phase_deg, xerr=freq_err, yerr=phase_err_deg,
-                                label=label_phase, marker=marker, linestyle=linestyle, markersize=markersize,
+                                label=label_phase, marker=marker, linestyle=linestyle, 
+                                color='firebrick', markersize=markersize,
                                 elinewidth=elinewidth, capsize=capsize)
 
         # Legenda unica sul pannello del modulo
