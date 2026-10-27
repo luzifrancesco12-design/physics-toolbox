@@ -19,12 +19,12 @@ class BodePlotter(BasePlotter):
         self.ax_mag = self.axes[0]
         self.ax_phase = self.axes[1] if show_phase else None
 
-        self.add_grid(ax_idx=0, xscale="log", yscale="linear")
+        self.add_grid(ax_idx=0, xscale="log", yscale="linear", alpha=0.7)
         self.set_labels(xlabel=r"$f \mathrm{[Hz]}$",
                         ylabel=r"$|H(j\omega)|\ \mathrm{[dB]}$", ax_idx=0)
 
         if show_phase:
-            self.add_grid(ax_idx=1, xscale="log", yscale="linear")
+            self.add_grid(ax_idx=1, xscale="log", yscale="linear", alpha=0.7)
             self.set_labels(xlabel=r"$f \mathrm{[Hz]}$",
                             ylabel=r"$\arg(H)\ \mathrm{[deg]}$", ax_idx=1)
             self.ax_mag.set_xlabel("")  # l'etichetta x resta solo sul pannello in basso
