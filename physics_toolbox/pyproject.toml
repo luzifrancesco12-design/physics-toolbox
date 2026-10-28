@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "physics_toolbox"
+version = "0.1.0"
+description = "Strumenti per il laboratorio di Segnali e Sistemi: lettura da Google Sheets e grafici (Bode)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "requests",
+    "openpyxl",
+]
+
+[tool.setuptools]
+packages = ["physics_toolbox"]
