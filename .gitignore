@@ -6,3 +6,9 @@ __pycache__/
 *.pyo
 *.pyd
 
+#File di Vs Code
+.vscode/
+
+#Altro
+*.egg-info/
+*.ipynb_checkpoints/
