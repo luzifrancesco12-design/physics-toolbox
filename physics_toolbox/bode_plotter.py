@@ -60,15 +60,10 @@ class BodePlotter(BasePlotter):
                                 color='firebrick', markersize=markersize,
                                 elinewidth=elinewidth, capsize=capsize)
 
-        # Legenda unica sul pannello del modulo
-        axes_used = [self.ax_mag] + ([self.ax_phase] if self.show_phase else [])
-        handles, labels = [], []
-        for ax in axes_used:
-            for h, l in zip(*ax.get_legend_handles_labels()):
-                if l and l not in labels:
-                    handles.append(h)
-                    labels.append(l)
-        if handles:
-            self.ax_mag.legend(handles, labels, loc='best', frameon=True)
+        # Una legenda per pannello
+        if label_mag is not None:
+            self.ax_mag.legend(loc='best', frameon=True)
+        if self.show_phase and label_phase is not None:
+            self.ax_phase.legend(loc='best', frameon=True)
 
         return self.ax_mag, self.ax_phase
