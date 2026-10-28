@@ -12,8 +12,8 @@ class BodePlotter(BasePlotter):
             figsize = (8, 7) if show_phase else (8, 5)
 
         super().__init__(figsize=figsize,
-                        nrows=2 if show_phase else 1,
-                        ncols=1,
+                        nrows=1 if show_phase else 1,
+                        ncols=2,
                         sharex=show_phase)
 
         self.ax_mag = self.axes[0]
