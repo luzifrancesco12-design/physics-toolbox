@@ -4,17 +4,18 @@ from .base_plotter import BasePlotter
 class BodePlotter(BasePlotter):
     """
     Diagramma di Bode. Di default mostra solo il modulo;
-    la fase compare solo con show_phase=True (pannelli impilati).
+    la fase compare solo con show_phase=True (pannelli affiancati).
     """
     def __init__(self, figsize=None, show_phase=False):
         self.show_phase = show_phase
         if figsize is None:
-            figsize = (8, 7) if show_phase else (8, 5)
+            figsize = (14, 5) if show_phase else (8, 5)
 
         super().__init__(figsize=figsize,
-                        nrows=1 ,
-                        ncols=2 if show_phase else 1,
-                        sharex=show_phase)
+                nrows=1,
+                ncols=2 if show_phase else 1,
+                sharex=show_phase,
+                width_ratios=[3, 2] if show_phase else None)
 
         self.ax_mag = self.axes[0]
         self.ax_phase = self.axes[1] if show_phase else None
@@ -27,7 +28,6 @@ class BodePlotter(BasePlotter):
             self.add_grid(ax_idx=1, xscale="log", yscale="linear", alpha=0.7)
             self.set_labels(xlabel=r"$f \mathrm{[Hz]}$",
                             ylabel=r"$\arg(H)\ \mathrm{[deg]}$", ax_idx=1)
-            self.ax_mag.set_xlabel("")  # l'etichetta x resta solo sul pannello in basso
 
     def plot_bode(self, freq, magnitude, phase_deg=None, freq_err=None,
                 magnitude_err=None, phase_err_deg=None, is_db=True, is_db_err=False,
