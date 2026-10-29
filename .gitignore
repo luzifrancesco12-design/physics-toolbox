@@ -12,3 +12,7 @@ __pycache__/
 #Altro
 *.egg-info/
 *.ipynb_checkpoints/
+.DS_Store
+.vscode/
+*.egg-info/
+.ipynb_checkpoints/
