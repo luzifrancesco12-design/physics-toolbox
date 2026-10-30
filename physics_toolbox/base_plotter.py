@@ -24,8 +24,11 @@ class BasePlotter:
     """
     Classe base per la generazione di grafici bidimensionali versatili.
     """
-    def __init__(self, figsize=(8, 5), nrows=1, ncols=1, sharex=False, sharey=False):
-        self.fig, self.ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize, sharex=sharex, sharey=sharey)
+    def __init__(self, figsize=(8, 5), nrows=1, ncols=1, sharex=False, sharey=False, width_ratios=None):
+        self.fig, self.ax = plt.subplots(
+        nrows=nrows, ncols=ncols, figsize=figsize, sharex=sharex, sharey=sharey,
+        gridspec_kw={"width_ratios": width_ratios} if width_ratios is not None else None
+    )
         self.axes = np.atleast_1d(self.ax)
         
         #Per il funzionamento sopra: fissando nrows=2 ncols=1 si creano due subplots impilati verticalmente, 
