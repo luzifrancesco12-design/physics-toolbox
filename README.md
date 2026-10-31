@@ -2,17 +2,24 @@
 
 Strumenti per il laboratorio di Segnali e Sistemi.
 
-- `SheetConnector`: legge tabelle da un Google Sheet condiviso come "Chiunque abbia il link > Visualizzatore" (nessun login, nessun segreto).
-- `BasePlotter`, `BodePlotter`: grafici con barre d'errore e diagrammi di Bode.
+[![Apri in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/luzifrancesco12-design/physics-toolbox/blob/main/notebooks/Template_Analisi_Dati.ipynb)
 
-## Installazione (Colab)
+Apri il template con il pulsante, poi `File ▸ Salva una copia in Drive` e lavora sulla copia.
+
+## Contenuto
+
+- `SheetConnector`: legge tabelle da un Google Sheet condiviso come "Chiunque abbia il link > Visualizzatore" (nessun login).
+- `BasePlotter`, `BodePlotter`: grafici con barre d'errore e diagrammi di Bode.
+- `analysis`: `Tabelle`, `fit`, `media_pesata`, `propaga`, `x_da_y`, `grafico_fit`, `fmt`, `salva`, `scarica_figure`. Guida di ogni funzione con `help(nome_funzione)`.
+
+## Installazione manuale (Colab)
 
 ```python
-!pip install -q git+https://github.com/<UTENTE>/physics_toolbox.git
+!pip install -q git+https://github.com/luzifrancesco12-design/physics-toolbox.git
 ```
 
-Per aggiornare all'ultima versione: aggiungi `--upgrade --force-reinstall --no-deps`.
-Per bloccare una versione precisa: `...physics_toolbox.git@v0.1.0`.
+Per aggiornare: aggiungi `--upgrade --force-reinstall --no-deps`.
+Per bloccare una versione: `...physics-toolbox.git@v0.1.0`.
 
 ## Uso
 
