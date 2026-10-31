@@ -20,6 +20,16 @@ plt.rcParams.update({
     "savefig.dpi": 300
 })
 
+def _fmt_si(x, pos=None):
+        """Formatta un numero con prefissi SI: 1, 10, 100, 1k, 10k, 1M..."""
+        if x == 0:
+            return "0"
+        for exp, suffix in ((9, "G"), (6, "M"), (3, "k"), (0, ""), (-3, "m"), (-6, r"$\mu$")):
+            if abs(x) >= 10**exp:
+                val = x / 10**exp
+                return f"{val:g}{suffix}"
+        return f"{x:g}"
+
 class BasePlotter:
     """
     Classe base per la generazione di grafici bidimensionali versatili.
@@ -43,7 +53,16 @@ class BasePlotter:
     def plot_error(self, x, y, xerr=None, yerr=None, ax_idx=0, label=None, linestyle=None, marker='o', color=None, markersize=3, linewidth=1.5, elinewidth=1.0):
         """Traccia uno scatter plot con barre d'errore sull'asse specificato """
         ax=self.axes[ax_idx]
-        return ax.errorbar(x, y, xerr=xerr, yerr=yerr, label=label, linestyle=linestyle, marker=marker, color=color, markersize=markersize, linewidth=linewidth, elinewidth=elinewidth)
+        return ax.errorbar(x, y, xerr=xerr, yerr=yerr, label=label, linestyle=linestyle, marker=marker, color=color, 
+                        markersize=markersize, linewidth=linewidth, elinewidth=elinewidth)
+        
+    
+    def set_si_ticks(self, axis="x", ax_idx=0):
+        """Mostra i tick con prefissi SI (1k, 10k, 1M...) invece della notazione scientifica."""
+        ax = self.axes[ax_idx]
+        target = ax.xaxis if axis == "x" else ax.yaxis
+        target.set_major_formatter(ticker.FuncFormatter(_fmt_si))
+        target.set_minor_formatter(ticker.NullFormatter())
 
     def set_labels(self, xlabel, ylabel, ax_idx=0):
         """Imposta le etichette degli assi con supporto LaTeX."""
