@@ -2,7 +2,7 @@
 
 Strumenti per il laboratorio di Segnali e Sistemi.
 
-[![Apri in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/luzifrancesco12-design/physics-toolbox/blob/main/notebooks/Template_Analisi_Dati.ipynb)
+[![Apri in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Sft5GLx97lTYJdF_0ACkUDuTRRm3AjFz)
 
 Apri il template con il pulsante, poi `File ▸ Salva una copia in Drive` e lavora sulla copia.
 
